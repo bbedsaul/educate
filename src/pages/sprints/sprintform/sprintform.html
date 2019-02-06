@@ -1,0 +1,199 @@
+<br/>
+<section class="page-sprint-form">
+    <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="sprintForm" (ngSubmit)="onSubmit()" (stateChange)="changeHandler($event)">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Sprint Information
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div>
+          <mat-form-field class="m-right">
+            <input matInput placeholder="Sprint Name" formControlName="name">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="m-right">
+            <input matInput placeholder="Display Name" formControlName="displayName">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="m-right">
+            <input matInput placeholder="Description" formControlName="description">
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Meeting Time / Place
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div>
+          <mat-form-field class="m-right">
+            <input matInput placeholder="Meeting Link" formControlName="meetinglink">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="m-right">
+            <input matInput placeholder="Meeting Time" formControlName="starttime">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="m-right">
+            <input matInput formControlName="startdate" [matDatepicker]="picker" readonly placeholder="Choose a start date">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="m-right">
+            <input matInput formControlName="enddate" [matDatepicker]="picker2" readonly placeholder="Choose an end date">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="freq-label">
+          <span *ngFor="let freq of freqForms.controls; let i=index">
+            <label class='freq-label'>{{ getLabel(freq) }}</label>
+          </span>
+        </div>
+        <div formArrayName="frequency">
+          <span *ngFor="let freq of freqForms.controls; let i=index" [formGroupName]="i">
+              <mat-checkbox formControlName="checked" class="weekday"></mat-checkbox>
+          </span>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Facilitator / Coach Info
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div>
+          <mat-form-field class="m-right">
+            <input matInput placeholder="Facilitator Name" (click)="addUser('facilitator')" formControlName="facilitatorName">
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field class="m-right">
+            <input matInput placeholder="Content Coach" (click)="addUser('sponsor')" readonly formControlName="sponsorName">
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Sprinter Info
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div formArrayName="sprinters">
+          <div *ngFor="let sprinter of sprinters.controls; let i=index" [formGroupName]="i">
+            <mat-form-field >
+              <input matInput placeholder="Sprinter" (click)="addUser('student',i)" readonly formControlName="name">
+            </mat-form-field>
+            <button *ngIf="i > 0" mat-icon-button type="button" (click)="deleteSprinter(i)">
+              <mat-icon class="mat-18">delete</mat-icon>
+            </button>
+          </div>
+        </div>
+        <button mat-raised-button type="button" color="primary" (click)="addSprinter()">Add Sprinter</button>
+      </mat-expansion-panel>
+      <!--
+        <mat-horizontal-stepper formArrayName="steps" linear>
+          <mat-step formGroupName="0" [stepControl]="formArray?.get([0])" label="">
+            <div>
+            <mat-form-field class="m-right">
+              <input matInput placeholder="Sprint Name" formControlName="name">
+            </mat-form-field>
+            </div>
+            <div>
+            <mat-form-field class="m-right">
+              <input matInput placeholder="Display Name" formControlName="displayName">
+            </mat-form-field>
+            </div>
+            <div>
+            <mat-form-field class="m-right">
+              <input matInput placeholder="Description" formControlName="description">
+            </mat-form-field>
+            </div>
+            <div>
+              <button mat-button matStepperNext type="button">Next</button>
+              <button mat-raised-button color="secondary" type="button" (click)="cancelUpdate()">Cancel</button>
+            </div>
+          </mat-step>
+          <mat-step formGroupName="1" [stepControl]="formArray?.get([1])" label="">
+            <div>
+            <mat-form-field class="m-right">
+              <input matInput placeholder="Meeting Link" formControlName="meetinglink">
+            </mat-form-field>
+            </div>
+            <div>
+            <mat-form-field class="m-right">
+              <input matInput placeholder="Meeting Time" formControlName="starttime">
+            </mat-form-field>
+            </div>
+            <div>
+            <mat-form-field class="m-right">
+              <input matInput formControlName="startdate" [matDatepicker]="picker" readonly placeholder="Choose a start date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            </div>
+            <div>
+            <mat-form-field class="m-right">
+              <input matInput formControlName="enddate" [matDatepicker]="picker2" readonly placeholder="Choose an end date">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+            </div>
+            -->
+            <!--
+            <div class="freq-label">
+      <span *ngFor="let freq of freqForms.controls; let i=index">
+        <label class='freq-label'>{{ getLabel(freq) }}</label>
+      </span>
+            </div>
+            <div formArrayName="frequency">
+      <span *ngFor="let freq of freqForms.controls; let i=index" [formGroupName]="i">
+          <mat-checkbox formControlName="checked" class="weekday"></mat-checkbox>
+      </span>
+            </div>
+            -->
+            <!--
+            <div>
+              <button mat-button matStepperPrevious type="button">Back</button>
+              <button mat-button matStepperNext type="button">Next</button>
+              <button mat-raised-button color="secondary" type="button" (click)="cancelUpdate()">Cancel</button>
+            </div>
+          </mat-step>
+          <mat-step formGroupName="2" [stepControl]="formArray?.get([2])" label="">
+            <div>
+            <mat-form-field class="m-right">
+              <input matInput placeholder="Facilitator Name" (click)="addUser('facilitator')" formControlName="facilitatorName">
+            </mat-form-field>
+            </div>
+            <div>
+            <mat-form-field class="m-right">
+              <input matInput placeholder="Content Coach" (click)="addUser('sponsor')" readonly formControlName="sponsorName">
+            </mat-form-field>
+            </div>
+            <div>
+              <button mat-button color="primary" matStepperPrevious type="button">Back</button>
+              <button mat-button color="primary" matStepperNext type="button">Next</button>
+            </div>
+          </mat-step>
+          <mat-step formGroupName="3" [stepControl]="formArray?.get([3])" label="">
+            <div>
+              <button mat-raised-button color="primary" [disabled]="sprintForm.invalid || state !== 'modified'">Save Sprint Information</button>
+              <button mat-raised-button color="primary">Save Sprint Information</button>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
+      -->
+      <mat-spinner *ngIf="state === 'loading'" ></mat-spinner>
+      <button mat-raised-button color="primary" [disabled]="sprintForm.invalid">Update Sprint</button>
+      <button mat-raised-button color="secondary" type="button" (click)="cancelUpdate()">Cancel</button>
+    </form>
+</section>

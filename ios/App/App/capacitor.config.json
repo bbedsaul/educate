@@ -1,0 +1,6 @@
+{
+  "appId": "com.onefreeplanet.capcamera",
+  "appName": "cap-camera",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}

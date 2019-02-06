@@ -1,0 +1,31 @@
+<div fxLayoutAlign="center center">
+  <mat-form-field fxFlex="40%">
+    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+</div>
+
+<mat-table [dataSource]="dataSource" matSort>
+
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Task Name</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <a (click)="doTask(element)">
+        {{ element.name }}
+      </a>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="taskComplete">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Task Status</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <div *ngIf="!isCompleted(element)">Not Done</div>
+      <div *ngIf="isCompleted(element)">Done</div>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 50, 100]">
+</mat-paginator>
+

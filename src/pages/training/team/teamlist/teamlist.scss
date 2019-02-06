@@ -1,0 +1,15 @@
+page-teamlist {
+
+  .mat-raised-button {
+    margin: 5px;
+  }
+  mat-table {
+    width: 100%;
+  }
+  .mat-column-delete {
+    flex: 0 0 35px;
+  }
+  .mat-row {
+    padding: 0 10px;
+  }
+}

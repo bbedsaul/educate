@@ -1,0 +1,44 @@
+page-header {
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
+
+  a:hover,
+  a:active {
+    color: lightgray;
+  }
+
+  div.menubig {
+    flex-direction: row;
+    box-sizing: border-box;
+    place-content: stretch flex-end;
+    align-items: stretch;
+    display: flex;
+    flex: 1 0 80%;
+  }
+
+  .navigation-items {
+    list-style: none;
+    padding: 0;
+    padding-left: 30px;
+    margin: 0;
+  }
+
+  .nav-caption {
+    display: inline-block;
+    padding-left: 6px;
+  }
+
+  ion-icon::before {
+    display: inline-block;
+    padding-left: 8px;
+  }
+
+  .header-back {
+    display: flex;
+    flex: 1 0 0%;
+    justify-content: flex-end;
+  }
+}

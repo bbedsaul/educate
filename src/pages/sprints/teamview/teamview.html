@@ -1,0 +1,150 @@
+<!--
+  Generated template for the TeamviewPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+  <ion-buttons start>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-buttons>
+    <ion-title>
+      <ion-grid>
+        <ion-row class="sprinter-flex">
+          <ion-col>{{sprint.displayName}}</ion-col>
+          <ion-col col-4>
+            <ion-row><span class="titlenames">Facilitator: {{sprint.facilitatorName}}</span></ion-row>
+            <ion-row><span class="titlenames">Sponsor: {{ sprint.sponsorName }}     </span></ion-row>
+          </ion-col>
+          <ion-col col-3 class="teampoints, titlenames">Team Points : {{ sprint.points }}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content fullscreen>
+  <ion-grid>
+    <ion-row>
+      <ion-col col-3>
+        <ion-grid>
+          <ion-row><ion-col justify-content-center>&nbsp;</ion-col></ion-row>
+          <ion-row  [style.height]="height" *ngFor="let user of sprinters; index as i;">
+            <ion-col justify-content-center>
+              <ion-list class="sprinter-list">
+                  <div>
+                    <div class="avitar">
+                      <img (click)="openSprinterPopup($event, user)" src="../../assets/icon/placeholder.png">
+                    </div>
+                    <div class="sprinter-name"><b (click)="openSprinterPopup($event, user)">{{ user.firstName.toUpperCase() }} {{ user.lastName.toUpperCase().charAt(0)}}</b></div>
+                  </div>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+      <ion-col col-9 showWhen="portrait">
+        <ion-grid>
+          <ion-row>
+            <ion-slides>
+              <ion-slide>
+                <ion-col justify-content-center col-4>
+                  <ion-grid>
+                    <ion-row><ion-col><b>TO-DO</b></ion-col></ion-row>
+                    <ion-row [style.height]="height" *ngFor="let user of sprinters; index as i;">
+                      <ion-col>
+                          <div class="whiteboard-flexlist">
+                            <div class="card card-1" (click)="openStickyPopup($event, i, j,'todo', sticky)"  *ngFor="let sticky of user.todo; index as j;">
+                              {{sticky.stickyNumber}}
+                            </div>
+                          </div>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-col>
+              </ion-slide>
+              <ion-slide>
+                <ion-col justify-content-center col-4>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col><b>DOING</b></ion-col>
+                      <ion-col><b>BLOCKED</b></ion-col>
+                    </ion-row>
+                    <ion-row [style.height]="height" *ngFor="let user of sprinters; index as i;">
+                      <ion-col>
+                        <div class="whiteboard-flexlist">
+                          <div class="card card-1" (click)="openStickyPopup($event, i, j, 'doing', sticky)"  *ngFor="let sticky of user.doing; index as j;">
+                            {{sticky.stickyNumber}}
+                          </div>
+                        </div>
+                      </ion-col>
+                      <ion-col>
+                        <div class="whiteboard-flexlist">
+                          <div class="card card-1" (click)="openStickyPopup($event, i, j, 'blocked', sticky)"  *ngFor="let sticky of user.blocked; index as j;">
+                            {{sticky.stickyNumber}}
+                          </div>
+                        </div>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-col>
+              </ion-slide>
+              <ion-slide>
+                <ion-col justify-content-center col-4>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col><b>DONE</b></ion-col>
+                    </ion-row>
+                    <ion-row [style.height]="height" *ngFor="let user of sprinters;">
+                      <ion-col>
+                        <div class="whiteboard-flexlist">
+                          <div class="card card-1" *ngFor="let sticky of user.completed;">
+                            {{sticky.stickyNumber}}
+                          </div>
+                        </div>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-col>
+              </ion-slide>
+            </ion-slides>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+      <ion-col col-9 showWhen="landscape">
+        <div class="whiteboard-header">
+        <div [style.width]="todowidth" [style.font-weight]="bold">TO-DO</div>
+          <div [style.width]="doingwidth" [style.font-weight]="bold">DOING</div>
+          <div [style.width]="blockedwidth" [style.font-weight]="bold">BLOCKED</div>
+          <div [style.width]="completedwidth" [style.font-weight]="bold">DONE</div>
+        </div>
+        <div [style.height]="height" class="whiteboard-header" *ngFor="let user of sprinters; index as i;">
+          <div [style.width]="todowidth">
+          <div class="whiteboard-flexlist" [dragula]='"my-bag"' [dragulaModel]="user.todo">
+            <div class="card card-1" (click)="openStickyPopup($event, i, j, 'todo', sticky)" *ngFor="let sticky of user.todo; index as j;" [innerHtml]="sticky.stickyNumber"></div>
+          </div>
+          </div>
+          <div [style.width]="doingwidth">
+            <div class="whiteboard-flexlist" [dragula]='"my-bag"' [dragulaModel]="user.doing">
+              <div class="card card-1" (click)="openStickyPopup($event, i, j, 'doing', sticky)" *ngFor="let sticky of user.doing; index as j;" [innerHtml]="sticky.stickyNumber"></div>
+            </div>
+          </div>
+          <div [style.width]="blockedwidth">
+            <div class="whiteboard-flexlist" [dragula]='"my-bag"' [dragulaModel]="user.blocked">
+              <div class="card card-1" (click)="openStickyPopup($event, i, j, 'blocked', sticky)" *ngFor="let sticky of user.blocked; index as j;" [innerHtml]="sticky.stickyNumber"></div>
+            </div>
+          </div>
+          <div [style.width]="completedwidth">
+          <div class="whiteboard-flexlist">
+            <div class="card card-1" *ngFor="let sticky of user.completed" [innerHtml]="sticky.stickyNumber"></div>
+          </div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

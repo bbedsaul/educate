@@ -1,0 +1,59 @@
+<mat-dialog-content>
+  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="m-right">
+      <mat-select placeholder="Task Number" formControlName="taskNo">
+        <mat-option *ngFor="let taskno of dropdown" [value]="taskno">
+          {{taskno}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+      <mat-form-field class="m-right">
+        <input matInput placeholder="Task Name" formControlName="name">
+      </mat-form-field>
+      <mat-form-field class="m-right">
+        <input matInput placeholder="Task Video URL" formControlName="video">
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Task Description" rows="10" formControlName="description"></textarea>
+      </mat-form-field>
+      <div formArrayName="questions">
+        <div *ngFor="let question of questionForms.controls; let i=index" [formGroupName]="i">
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                <button mat-icon-button type="button" (click)="deleteQuestion(i)">
+                  <mat-icon class="mat-18">delete</mat-icon>
+                  Question {{ i + 1 }}
+                </button>
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div>
+              <mat-form-field >
+                <textarea matInput placeholder="Enter Question" formControlName="questionText"></textarea>
+              </mat-form-field>
+            </div>
+          <div>
+            <div formArrayName="answers">
+              <div *ngFor="let answer of getAnswerForms(question).controls; let j=index" [formGroupName]="j">
+                <button mat-icon-button type="button" (click)="deleteAnswer(question)">
+                  <mat-icon class="mat-18">delete</mat-icon>
+                </button>
+            <mat-form-field>
+              <input matInput placeholder="Enter Answer" formControlName="answerText">
+            </mat-form-field>
+             <mat-checkbox class="checkbox-margin" formControlName="correct">Correct</mat-checkbox>
+              </div>
+            </div>
+            <button mat-raised-button type="button" color='primary' (click)="addAnswer(question)">Add Answer</button>
+          </div>
+          </mat-expansion-panel>
+        </div>
+      </div>
+      <button mat-raised-button type="button" color="primary" (click)="addQuestion()">Add Question</button>
+      <mat-spinner *ngIf="state === 'loading'" ></mat-spinner>
+    <button mat-raised-button color="primary" [disabled]="enableSubmit()">Update Task</button>
+    <button mat-raised-button color="secondary" type="button" (click)="cancelUpdate()">Cancel</button>
+  </form>
+</mat-dialog-content>

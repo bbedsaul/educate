@@ -1,0 +1,23 @@
+page-sprint-form {
+
+  text-align: center;
+
+  mat-select {
+    margin-left: 15px;
+  }
+
+  mat-form-field {
+    display: block;
+    width: 50%;
+  }
+
+  mat-expansion-panel {
+    width: 90%;
+  }
+
+  .freq-label {
+    display: inline-block;
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+}

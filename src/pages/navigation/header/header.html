@@ -1,0 +1,48 @@
+<mat-toolbar color="primary">
+  <div fxHide.gt-xs>
+    <button mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <div>
+    <a routerLink="/">{{ headerTitle }}</a>
+  </div>
+  <div fxLayoutAlign="flex-end" fxHide.xs class="menubig">
+    <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+      <li *ngIf="!(isAuth$ | async)">
+        <a routerLink="/signup">Signup</a>
+      </li>
+      <li *ngIf="!(isAuth$ | async)">
+        <a routerLink="/login">Login</a>
+      </li>
+      <li *ngIf="isAuth$ | async">
+        <a routerLink="/sprints">Sprints</a>
+      </li>
+      <li *ngIf="isAuth$ | async">
+        <a routerLink="/training">Training</a>
+      </li>
+      <li *ngIf="isAuth$ | async">
+        <a routerLink="/badges">Badges</a>
+      </li>
+      <!--
+      <li *ngIf="isAuth$ | async">
+        <a routerLink="/reviews">Reviews</a>
+      </li>
+      -->
+      <li *ngIf="isAuth$ | async">
+        <a routerLink="/profile">Profile</a>
+      </li>
+      <li *ngIf="isAuth$ | async">
+        <a routerLink="/settings">Settings</a>
+      </li>
+      <li *ngIf="isAuth$ | async">
+        <a style="cursor: pointer" (click)="onLogout()">Logout</a>
+      </li>
+    </ul>
+  </div>
+  <div class="header-back">
+    <a mat-list-item (click)="goBack()">
+      <ion-icon name="arrow-dropleft"></ion-icon>
+    </a>
+  </div>
+</mat-toolbar>

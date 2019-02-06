@@ -1,0 +1,33 @@
+<br/>
+<section class="sticky-form">
+  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="stickyForm" (ngSubmit)="onSubmit()">
+    <div class="m-right">
+      <button mat-raised-button color="primary" type="button" (click)="addTask()">Add Task</button>
+    </div>
+    <mat-form-field class="m-right">
+      <mat-select placeholder="Sticky Number" formControlName="stickyNo">
+        <mat-option *ngFor="let stickyno of dropdown" [value]="stickyno">
+          {{stickyno}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="m-right">
+      <input matInput placeholder="Sticky Name" formControlName="name">
+    </mat-form-field>
+    <mat-form-field class="m-right">
+      <input matInput placeholder="Sticky Description Video URL" formControlName="video">
+    </mat-form-field>
+    <mat-form-field>
+      <textarea matInput placeholder="Sticky Description" rows="10" formControlName="description"></textarea>
+    </mat-form-field>
+    <mat-form-field class="m-right">
+      <input matInput placeholder="Points For Completing Sticky" formControlName="points">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Estimated Minutes" formControlName="minutes">
+    </mat-form-field>
+    <mat-spinner *ngIf="state === 'loading'" ></mat-spinner>
+    <button mat-raised-button color="primary" [disabled]="enableSubmit()">Update Sticky</button>
+    <button mat-raised-button color="secondary" type="button" (click)="cancelUpdate()">Cancel</button>
+  </form>
+</section>

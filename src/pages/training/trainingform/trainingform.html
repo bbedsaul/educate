@@ -1,0 +1,36 @@
+<br/>
+<section class="training-form">
+    <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="trainingForm" (ngSubmit)="onSubmit()">
+      <div class="m-right">
+        <button mat-raised-button color="primary" type="button" (click)="addModule()">Add Module</button>
+        <button mat-raised-button color="primary" type="button" (click)="addSprint()">Add Sprint</button>
+      </div>
+      <div class="m-right">
+        <button mat-raised-button color="primary" type="button" (click)="previewTraining()">See Preview</button>
+      </div>
+        <mat-slide-toggle
+          formControlName="published"
+          [color]="color"
+          (change)="ifPublished($event)">
+          Publish Training
+        </mat-slide-toggle>
+      <mat-form-field *ngIf="isPublished" class="m-right" disabled>
+        <input matInput placeholder="New Saved Version" readonly formControlName="version" >
+      </mat-form-field>
+      <mat-form-field *ngIf="isPublished" class="m-right">
+        <input matInput placeholder="New Publish Description" formControlName="pubdescription" >
+      </mat-form-field>
+      <mat-form-field class="m-right">
+        <input matInput placeholder="Training Name" formControlName="name" >
+      </mat-form-field>
+      <mat-form-field class="m-right">
+        <input matInput placeholder="Training Description Video URL" formControlName="video">
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Training Description" formControlName="description"></textarea>
+      </mat-form-field>
+      <mat-spinner *ngIf="status === 'loading'" ></mat-spinner>
+      <button mat-raised-button color="primary" [disabled]="enableSubmit()">Update Training</button>
+      <button mat-raised-button color="secondary" type="button" (click)="cancelUpdate()">Cancel</button>
+    </form>
+</section>

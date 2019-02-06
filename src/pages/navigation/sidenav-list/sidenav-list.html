@@ -1,0 +1,56 @@
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <mat-nav-list>
+      <mat-list-item *ngIf="user">
+        <ion-avatar item-start>
+          <img src="{{ user.photoURL}}">
+        </ion-avatar>
+        <h2>{{ user.displayName }}</h2>
+      </mat-list-item>
+  <a mat-list-item routerLink="/signup" (click)="onClose()" *ngIf="!(isAuth$ | async)">
+    <mat-icon>face</mat-icon>
+    <span class="nav-caption">Signup</span>
+  </a>
+  <a mat-list-item routerLink="/login" (click)="onClose()" *ngIf="!(isAuth$ | async)">
+    <mat-icon>input</mat-icon>
+    <span class="nav-caption">Login</span>
+  </a>
+  <a mat-list-item routerLink="/sprints" (click)="onClose()" *ngIf="isAuth$ | async">
+    <mat-icon>directions_run</mat-icon>
+    <span class="nav-caption">My Sprints</span>
+  </a>
+  <a mat-list-item routerLink="/training" (click)="onClose()" *ngIf="isAuth$ | async">
+    <mat-icon>train</mat-icon>
+    <span class="nav-caption">My Trainings</span>
+  </a>
+  <a mat-list-item routerLink="/badges" (click)="onClose()" *ngIf="isAuth$ | async">
+    <mat-icon>assistant_photo</mat-icon>
+    <span class="nav-caption">My Badges</span>
+  </a>
+      <!--
+  <a mat-list-item routerLink="/reviews" (click)="onClose()" *ngIf="isAuth$ | async">
+    <mat-icon>star_rate</mat-icon>
+    <span class="nav-caption">My Reviews</span>
+  </a>
+      -->
+  <a mat-list-item routerLink="/profile" (click)="onClose()" *ngIf="isAuth$ | async">
+    <mat-icon>face</mat-icon>
+    <span class="nav-caption">My Profile</span>
+  </a>
+  <a mat-list-item routerLink="/settings" (click)="onClose()" *ngIf="isAuth$ | async">
+    <mat-icon>settings</mat-icon>
+    <span class="nav-caption">My Settings</span>
+  </a>
+  <mat-list-item>
+    <button mat-icon-button (click)="onLogout()" *ngIf="isAuth$ | async">
+      <mat-icon>eject</mat-icon>
+      <span class="nav-caption">Logout</span>
+    </button>
+  </mat-list-item>
+</mat-nav-list>
+
+</ion-content>

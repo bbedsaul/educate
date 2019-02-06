@@ -1,0 +1,19 @@
+page-sprinterpopup {
+
+  .cdk-overlay-pane {
+    min-width: 380px;
+  }
+
+  .item-inner {
+    background-image: none;
+  }
+  .list-header {
+    height:20px;
+  }
+  .label {
+    font-size: 10px;
+    height: 20px;
+  }
+
+  font-family: -apple-system, "Helvetica Neue", "Roboto", sans-serif;
+}

@@ -1,1 +1,11 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav role="navigation">
+    <page-sidenav-list (closeSidenav)="sidenav.close()"></page-sidenav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <page-header (sidenavToggle)="sidenav.toggle()"></page-header>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

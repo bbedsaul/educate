@@ -1,0 +1,25 @@
+<br/>
+<section class="userprofile-form">
+    <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="userProfileForm" fireForm path={{path}} (stateChange)="changeHandler($event)" [preloadFlag]='false'>
+      <mat-form-field class="m-right">
+        <input matInput placeholder="email" formControlName="email">
+      </mat-form-field>
+      <mat-form-field class="m-right">
+        <input matInput placeholder="Display Name" formControlName="displayName">
+      </mat-form-field>
+      <mat-form-field class="m-right">
+        <input matInput placeholder="First Name" formControlName="fname">
+      </mat-form-field>
+      <mat-form-field class="m-right">
+        <input matInput placeholder="Last Name" formControlName="lname">
+      </mat-form-field>
+      <mat-form-field class="m-right">
+        <input matInput placeholder="Phone Number" formControlName="phone">
+      </mat-form-field>
+      <mat-form-field class="m-right">
+        <input matInput placeholder="Photo Url" formControlName="photoUrl">
+      </mat-form-field>
+      <mat-spinner *ngIf="state === 'loading'" ></mat-spinner>
+      <button mat-raised-button color="primary" [disabled]="userProfileForm.invalid || state !== 'modified'">Update Profile</button>
+    </form>
+</section>

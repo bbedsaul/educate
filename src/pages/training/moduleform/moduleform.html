@@ -1,0 +1,27 @@
+<br/>
+<section class="userprofile-form">
+  <form fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px" [formGroup]="moduleForm" (ngSubmit)="onSubmit()">
+    <div class="m-right">
+      <button mat-raised-button color="primary" type="button" (click)="addSticky()">Add Sticky</button>
+    </div>
+    <mat-form-field class="m-right">
+      <mat-select placeholder="Module Number" formControlName="moduleNo">
+        <mat-option *ngFor="let moduleno of dropdown" [value]="moduleno">
+          {{moduleno}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+      <mat-form-field class="m-right">
+        <input matInput placeholder="Module Name" formControlName="name">
+      </mat-form-field>
+      <mat-form-field class="m-right">
+        <input matInput placeholder="Module Description Video URL" formControlName="video">
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Module Description" rows="10" formControlName="description"></textarea>
+      </mat-form-field>
+      <mat-spinner *ngIf="state === 'loading'" ></mat-spinner>
+      <button mat-raised-button color="primary" [disabled]="enableSubmit()">Update Module</button>
+    <button mat-raised-button color="secondary" type="button" (click)="cancelUpdate()">Cancel</button>
+    </form>
+</section>

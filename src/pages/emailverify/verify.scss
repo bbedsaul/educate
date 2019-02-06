@@ -1,0 +1,31 @@
+page-verify {
+
+  margin: auto;
+
+  mat-card {
+    height: 800px;
+  }
+
+  mat-form-field {
+    width: 300px;
+  }
+
+  mat-card-header {
+    font-weight: bold;
+    font-size: 18px;
+    justify-content: center;
+  }
+
+  mat-card-content {
+    width: 70%;
+    padding: 30px;
+    justify-content: center;
+    margin: auto;
+  }
+
+  .mat-card-actions {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+  }
+}

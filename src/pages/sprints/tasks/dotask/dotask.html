@@ -1,0 +1,54 @@
+<br/>
+<section class="page-do-task">
+        <mat-horizontal-stepper linear>
+          <mat-step>
+            <mat-card>
+              <mat-card-header>
+                <div>Task Description</div>
+              </mat-card-header>
+              <mat-card-content>
+                <div [innerHtml]="getDescription()"></div>
+              </mat-card-content>
+              <mat-card-actions align-items-center="true">
+                <button mat-button color="primary" (click)="completeStep(-2)" matStepperNext type="button">Next</button>
+              </mat-card-actions>
+            </mat-card>
+          </mat-step>
+          <mat-step *ngIf="isVideo()">
+            <mat-card>
+              <mat-card-header>
+                <div>Task Video</div>
+              </mat-card-header>
+              <mat-card-content>
+                <div (click)="playVideo()" [innerHtml]="innerHtml">
+                </div>
+              </mat-card-content>
+              <mat-card-actions align-items-center="true">
+                <button mat-button color="primary" matStepperPrevious type="button">Back</button>
+                <button mat-button color="primary" (click)="completeStep(-1)" matStepperNext type="button">Next</button>
+              </mat-card-actions>
+            </mat-card>
+          </mat-step>
+
+            <div *ngFor="let question of task.questions; let questionIndex=index">
+              <mat-step [stepControl]="questionIndex" label="Q{{questionIndex + 1}}" >
+                <mat-card>
+                  <mat-card-header>
+                    <div>{{ question.questionText }}</div>
+                  </mat-card-header>
+                  <mat-card-content>
+                      <div *ngFor="let answer of question.answers">
+                        <mat-checkbox class="checkbox-margin" [(ngModel)]="answer.studentAnswer">{{ answer.answerText }}</mat-checkbox>
+                      </div>
+                  </mat-card-content>
+                  <mat-card-actions align-items-center="true">
+                    <button mat-button color="primary" matStepperPrevious type="button">Back</button>
+                    <button mat-button color="primary" (click)="completeStep(questionIndex)" matStepperNext type="button">Save Answer</button>
+                  </mat-card-actions>
+                </mat-card>
+          </mat-step>
+          </div>
+        </mat-horizontal-stepper>
+      <mat-spinner *ngIf="state === 'loading'" ></mat-spinner>
+      <button mat-raised-button color="secondary" type="button" (click)="cancelUpdate()">Back To Tasks</button>
+</section>

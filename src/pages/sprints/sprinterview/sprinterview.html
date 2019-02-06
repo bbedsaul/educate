@@ -1,0 +1,174 @@
+<!--
+<ion-header>
+
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>WB Sprinter View</ion-title>
+  </ion-navbar>
+
+</ion-header>-->
+
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-3>
+        <ion-grid>
+          <ion-row><ion-col justify-content-center>&nbsp;</ion-col></ion-row>
+          <ion-row  [style.height]="height" *ngFor="let user of sprinters; index as i;">
+            <ion-col justify-content-center>
+              <ion-list class="sprinter-list">
+                <div>
+                  <div class="avitar" [style.height]="avitarHeight" [style.width]="avitarWidth">
+                    <img (click)="openSprinterPopup($event, user)" src="../../assets/icon/placeholder.png">
+                  </div>
+                  <div class="sprinter-name"><b (click)="openSprinterPopup($event, user)">{{ user.displayName.toUpperCase() }}</b></div>
+                </div>
+              </ion-list>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+      <ion-col col-9 showWhen="portrait">
+        <ion-grid>
+          <ion-row>
+            <ion-slides>
+              <ion-slide>
+                <ion-col justify-content-center col-4>
+                  <ion-grid>
+                    <ion-row><ion-col><b>TO-DO</b></ion-col></ion-row>
+                    <ion-row [style.height]="height" [style.height]="height" *ngFor="let user of sprinters; index as i;">
+                      <ion-col>
+                        <div class="whiteboard-flexlist" [style.height]="height" >
+                          <div class="card card-1" [style.height]="cardHeight" [style.width]="cardWidth" (click)="moveSticky($event, i, j,'todo', sticky)"  *ngFor="let sticky of user.todo; index as j;">
+                            M{{sticky.module}}
+                            S{{sticky.sticky}}
+                          </div>
+                        </div>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-col>
+              </ion-slide>
+              <ion-slide>
+                <ion-col justify-content-center col-4>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col><b>DOING</b></ion-col>
+                      <ion-col><b>BLOCKED</b></ion-col>
+                    </ion-row>
+                    <ion-row [style.height]="height" *ngFor="let user of sprinters; index as i;">
+                      <ion-col>
+                        <div class="whiteboard-flexlist" [style.height]="height">
+                          <div class="card card-1" [style.height]="cardHeight" [style.width]="cardWidth" (click)="moveSticky($event, i, j, 'doing', sticky)"  *ngFor="let sticky of user.doing; index as j;">
+                            M{{sticky.module}}
+                            S{{sticky.sticky}}
+                          </div>
+                        </div>
+                      </ion-col>
+                      <ion-col>
+                        <div class="whiteboard-flexlist" [style.height]="height" >
+                          <div class="card card-1" [style.height]="cardHeight" [style.width]="cardWidth" (click)="moveSticky($event, i, j, 'blocked', sticky)"  *ngFor="let sticky of user.blocked; index as j;">
+                            M{{sticky.module}}
+                            S{{sticky.sticky}}
+                          </div>
+                        </div>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-col>
+              </ion-slide>
+              <ion-slide>
+                <ion-col justify-content-center col-4>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col><b>DONE</b></ion-col>
+                    </ion-row>
+                    <ion-row [style.height]="height" [style.height]="height" *ngFor="let user of sprinters; index as i">
+                      <ion-col>
+                        <div class="whiteboard-flexlist" [style.height]="height">
+                          <div class="card card-1" [style.height]="cardHeight" [style.width]="cardWidth" (click)="moveSticky($event, i, j, 'completed', sticky)"  *ngFor="let sticky of user.completed; index as j">
+                            M{{sticky.module}}
+                            S{{sticky.sticky}}
+                          </div>
+                        </div>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-col>
+              </ion-slide>
+            </ion-slides>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+      <ion-col col-9 showWhen="landscape">
+        <div class="whiteboard-header">
+          <div [style.width]="todowidth"><b>TO-DO</b></div>
+          <div [style.width]="doingwidth"><b>DOING</b></div>
+          <div [style.width]="blockedwidth"><b>BLOCKED</b></div>
+          <div [style.width]="completedwidth"><b>DONE</b></div>
+        </div>
+        <div class="whiteboard-header" *ngFor="let user of sprinters; index as i;">
+          <div [style.width]="todowidth" [style.height]="height">
+            <div *ngIf="canDrag(i)" id="{{i}},{{'todo'}}" class="whiteboard-flexlist" [style.height]="height" [dragula]='"my-bag"' [(dragulaModel)]="user.todo">
+              <div id="{{j}},{{'todo'}}" class="card card-1" [style.height]="cardHeight" [style.width]="cardWidth" (click)="moveSticky($event, i, j, 'todo', sticky)" *ngFor="let sticky of user.todo; index as j;">
+                M{{sticky.module}}
+                S{{sticky.sticky}}
+              </div>
+            </div>
+            <div *ngIf="!canDrag(i)" class="whiteboard-flexlist" [style.height]="height">
+              <div class="card card-1" [style.height]="cardHeight" [style.width]="cardWidth" (click)="moveSticky($event, i, j, 'todo', sticky)" *ngFor="let sticky of user.todo; index as j;">
+                M{{sticky.module}}
+                S{{sticky.sticky}}
+              </div>
+            </div>
+          </div>
+          <div [style.width]="doingwidth" [style.height]="height" >
+            <div *ngIf="canDrag(i)" id="{{i}},{{'doing'}}" class="whiteboard-flexlist" [style.height]="height" [dragula]='"my-bag"' [(dragulaModel)]="user.doing">
+              <div id="{{j}},{{'doing'}}" class="card card-1" [style.height]="cardHeight" [style.width]="cardWidth" (click)="moveSticky($event, i, j, 'doing', sticky)" *ngFor="let sticky of user.doing; index as j;">
+                M{{sticky.module}}
+                S{{sticky.sticky}}
+              </div>
+            </div>
+            <div *ngIf="!canDrag(i)" class="whiteboard-flexlist" [style.height]="height">
+              <div class="card card-1" [style.height]="cardHeight" [style.width]="cardWidth" (click)="moveSticky($event, i, j, 'doing', sticky)" *ngFor="let sticky of user.doing; index as j;">
+                M{{sticky.module}}
+                S{{sticky.sticky}}
+              </div>
+            </div>
+          </div>
+          <div [style.width]="blockedwidth" [style.height]="height" >
+            <div *ngIf="canDrag(i)" id="{{i}},{{'blocked'}}" class="whiteboard-flexlist" [style.height]="height" [dragula]='"my-bag"' [(dragulaModel)]="user.blocked">
+              <div id="{{j}},{{'blocked'}}" class="card card-1" [style.height]="cardHeight" [style.width]="cardWidth" (click)="moveSticky($event, i, j, 'blocked', sticky)" *ngFor="let sticky of user.blocked; index as j;">
+                M{{sticky.module}}
+                S{{sticky.sticky}}
+              </div>
+            </div>
+            <div *ngIf="!canDrag(i)" class="whiteboard-flexlist" [style.height]="height">
+              <div class="card card-1" [style.height]="cardHeight" [style.width]="cardWidth" (click)="moveSticky($event, i, j, 'blocked', sticky)" *ngFor="let sticky of user.blocked; index as j;">
+                M{{sticky.module}}
+                S{{sticky.sticky}}
+              </div>
+            </div>
+          </div>
+          <div [style.width]="completedwidth" [style.height]="height" >
+            <div *ngIf="canDrag(i)" id="{{i}},{{'completed'}}" class="whiteboard-flexlist" [style.height]="height" [dragula]='"my-bag"' [(dragulaModel)]="user.completed">
+              <div id="{{j}},{{'completed'}}" class="card card-1" [style.height]="cardHeight" [style.width]="cardWidth" (click)="moveSticky($event, i, j, 'completed', sticky)" *ngFor="let sticky of user.completed; index as j;">
+                M{{sticky.module}}
+                S{{sticky.sticky}}
+              </div>
+            </div>
+            <div *ngIf="!canDrag(i)" class="whiteboard-flexlist" [style.height]="height">
+              <div class="card card-1" [style.height]="cardHeight" [style.width]="cardWidth" (click)="moveSticky($event, i, j, 'completed', sticky)" *ngFor="let sticky of user.completed; index as j;">
+                M{{sticky.module}}
+                S{{sticky.sticky}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>

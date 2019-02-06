@@ -1,0 +1,28 @@
+<!--
+  Generated template for the MovestickypopupPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<mat-card class="popup-card">
+  <mat-card-header>
+    <button *ngIf="isDoing()" (click)="close($event, 'tasks')" mat-raised-button color="primary">GO TO TASKS</button>
+  </mat-card-header>
+  <mat-card-content>
+    <div>Module {{sticky.module}} - {{sticky.moduledata.name}}</div>
+    <div>Sticky {{sticky.sticky}} - {{sticky.stickydata.name}}</div>
+    <div [innerHtml]="getDescription()"></div>
+    <div>POINTS : {{ sticky.stickydata.points }}</div>
+    <div>Est. Time to Complete : {{ sticky.stickydata.minutes }}</div>
+    <div (click)="playVideo()" [innerHtml]="innerHtml">
+    </div>
+  </mat-card-content>
+  <mat-card-actions align-items-center="true">
+    <button *ngIf="showItem('todo')" (click)="close($event, 'todo')" mat-raised-button color="primary">TO-DO</button>
+    <button *ngIf="showItem('doing')" (click)="close($event, 'doing')" mat-raised-button color="primary">DOING</button>
+    <button *ngIf="showItem('blocked')" (click)="close($event, 'blocked')" mat-raised-button color="primary">BLOCKED</button>
+    <button *ngIf="showItem('completed')" (click)="close($event, 'completed')" mat-raised-button color="primary">COMPLETED</button>
+  </mat-card-actions>
+</mat-card>
+

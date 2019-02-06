@@ -1,0 +1,22 @@
+page-training {
+
+  .mat-raised-button {
+    margin: 25px;
+  }
+
+  mat-table {
+    width: 100%;
+  }
+  .mat-column-sprinter {
+    flex: 0 0 40px;
+  }
+  .mat-column-team {
+    flex: 0 0 30px;
+  }
+  .mat-column-edit {
+    flex: 0 0 30px;
+  }
+  .mat-column-name {
+    flex: 0 0 50%;
+  }
+}

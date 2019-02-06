@@ -1,0 +1,33 @@
+<div>{{ title }}</div>
+<div fxLayoutAlign="center center">
+  <mat-form-field fxFlex="40%">
+    <input matInput type="text" placeholder="Filter">
+  </mat-form-field>
+</div>
+
+<mat-table [dataSource]="dataSource" matSort>
+
+  <ng-container matColumnDef="displayName">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <button mat-icon-button type="button" (click)="addUser(element)">
+        <mat-icon class="mat-18">add_circle</mat-icon>
+      </button>
+      <a>
+        {{ element.displayName }}
+      </a>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="email">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      {{ element.email }}
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 50, 100]">
+</mat-paginator>
+

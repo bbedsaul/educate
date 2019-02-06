@@ -1,0 +1,55 @@
+<div fxLayoutAlign="center center">
+  <mat-form-field fxFlex="40%">
+    <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  <button mat-raised-button type="button" color="primary" (click)="newTraining()">New Training</button>
+</div>
+
+<mat-table [dataSource]="dataSource" matSort>
+  <ng-container matColumnDef="sprinter">
+    <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <button *ngIf="element.permission !== 'student' && element.permission !== 'specialist'" mat-icon-button type="button" (click)="addSprint(element)">
+        <mat-icon class="mat-18">directions_run</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <a *ngIf="element.permission === 'student'" (click)="doTraining(element)">
+        {{ element.name }}
+      </a>
+      <span *ngIf="element.permission !== 'student'" >{{ element.name }}</span>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="permission">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>Permission</mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      {{ getPermission(element) }}
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="edit">
+    <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <button  *ngIf="element.permission === 'specialist' || element.permission === 'owner'" mat-icon-button type="button" (click)="editTraining(element)">
+        <mat-icon class="mat-18">edit</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+  <ng-container matColumnDef="team">
+    <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <button  *ngIf="element.permission === 'sponsor' || element.permission === 'owner'" mat-icon-button type="button" (click)="editTeam(element)">
+        <mat-icon class="mat-18">group</mat-icon>
+      </button>
+    </mat-cell>
+  </ng-container>
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 50, 100]">
+</mat-paginator>
+
